@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+    api:
+        build:
+            context: $PWD/
+            dockerfile: $PWD/Dockerfile
+        image: api
+        container_name: "api"
+        ports:
+            - "8080:80"
+        volumes:
+            - $PWD/api:/home/api
+            - $PWD/docker/nginx/api.conf:/etc/nginx/nginx.conf
+              # - $PWD/docker/nginx/api.conf:/etc/nginx/conf.d/api.conf
+        tty: true
+        command: /home/api/entrypoint.sh
+        deploy:
+            resources:
+                limits:
+                    memory: 1g
